@@ -34,7 +34,7 @@ defmodule PietWeb.Router do
     live "/:id/show/edit", ProjectLive.Show, :edit
   end
 
-  scope "/tasks", PietWeb do
+  scope "/projects/:id/tasks", PietWeb do
     pipe_through :browser
 
     live "/", TaskLive.Index, :index

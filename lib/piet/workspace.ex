@@ -127,7 +127,7 @@ defmodule Piet.Workspace do
 
   """
   def list_project_tasks(project_id) do
-    Repo.all(Task, where: [project_id: project_id])
+    Repo.all(from t in Task, where: t.project_id == type(^project_id, :id))
   end
 
   @doc """
