@@ -118,6 +118,19 @@ defmodule Piet.Workspace do
   end
 
   @doc """
+  Returns the list of tasks from a project.
+
+  ## Examples
+
+      iex> list_project_tasks()
+      [%Task{}, ...]
+
+  """
+  def list_project_tasks(project_id) do
+    Repo.all(Task, where: [project_id: project_id])
+  end
+
+  @doc """
   Gets a single task.
 
   Raises `Ecto.NoResultsError` if the Task does not exist.

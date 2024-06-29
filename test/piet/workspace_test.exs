@@ -69,6 +69,13 @@ defmodule Piet.WorkspaceTest do
       assert Workspace.list_tasks() == [task]
     end
 
+    test "list_project_tasks/0 returns all project tasks" do
+      project = project_fixture()
+      task = task_fixture(%{project_id: project.id})
+      IO.inspect(task)
+      assert Workspace.list_project_tasks(task.id) == [task]
+    end
+
     test "get_task!/1 returns the task with given id" do
       task = task_fixture()
       assert Workspace.get_task!(task.id) == task
