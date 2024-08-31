@@ -1,35 +1,29 @@
-<.header>
-  Listing Projects
-  <:actions>
-    <.link patch={~p"/projects/new"}>
-      <.button>New Project</.button>
-    </.link>
-  </:actions>
-</.header>
+<h1 class="font-bold text-3xl text-center pt-8 pb-4">
+  Projects
+</h1>
 
-<.table
-  id="projects"
-  rows={@streams.projects}
-  row_click={fn {_id, project} -> JS.navigate(~p"/projects/#{project}") end}
+<div class="flex gap-8 justify-center mb-4">
+  <.link patch={~p"/projects/new"}>
+    <.button>New Project</.button>
+  </.link>
+</div>
+
+<ul id="projects" class="grid grid-cols-3 gap-4 px-40" phx-update="stream">
+  <li
+    :for={{_, project} <- @streams.projects}
+    class="bg-white p-4 rounded-md border border-solid border-stone-200 shadow-sm col-span-1 cursor-pointer hover:border-stone-300"
+    phx-click={JS.navigate(~p"/projects/#{project}")}
+  >
+    <%= project.name %>
+  </li>
+</ul>
+
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="project-modal"
+  show
+  on_cancel={JS.patch(~p"/projects")}
 >
-  <:col :let={{_id, project}} label="Name"><%= project.name %></:col>
-  <:action :let={{_id, project}}>
-    <div class="sr-only">
-      <.link navigate={~p"/projects/#{project}"}>Show</.link>
-    </div>
-    <.link patch={~p"/projects/#{project}/edit"}>Edit</.link>
-  </:action>
-  <:action :let={{id, project}}>
-    <.link
-      phx-click={JS.push("delete", value: %{id: project.id}) |> hide("##{id}")}
-      data-confirm="Are you sure?"
-    >
-      Delete
-    </.link>
-  </:action>
-</.table>
-
-<.modal :if={@live_action in [:new, :edit]} id="project-modal" show on_cancel={JS.patch(~p"/projects")}>
   <.live_component
     module={PietWeb.ProjectLive.FormComponent}
     id={@project.id || :new}

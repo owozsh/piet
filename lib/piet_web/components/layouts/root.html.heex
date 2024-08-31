@@ -11,8 +11,33 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  <body class="bg-white antialiased">
-    <ul class="relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
+  <body class="bg-[#f9f4e8] antialiased flex flex-col h-screen">
+    <ul class="flex gap-8 px-8 py-2">
+        <li>
+          <.link
+            href={~p"/"}
+            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+          >
+            Home
+          </.link>
+        </li>
+        <li>
+          <.link
+            href={~p"/projects"}
+            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+          >
+            Projects
+          </.link>
+        </li>
+        <li>
+          <.link
+            href={~p"/tasks"}
+            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+          >
+            Tasks
+          </.link>
+        </li>
+        <div class="flex-1"></div>
       <%= if @current_user do %>
         <li class="text-[0.8125rem] leading-6 text-zinc-900">
           <%= @current_user.email %>

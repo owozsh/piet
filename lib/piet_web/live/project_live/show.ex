@@ -5,9 +5,9 @@ defmodule PietWeb.ProjectLive.Show do
 
   @impl true
   def mount(params, _session, socket) do
-    id = params[:id]
-    socket = socket |> stream(:tasks, Workspace.list_project_tasks(id))
-    IO.inspect(Workspace.list_project_tasks(id))
+    tasks = Workspace.list_project_tasks(params[:id])
+    socket = socket |> stream(:tasks, tasks)
+
     {:ok, socket}
   end
 
